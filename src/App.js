@@ -1,9 +1,11 @@
 import React from "react"
+import "./style.css"
+import Menu from "./components/Menu"
 
 function App() {
   return (
     <div className="App">
-      <header>My App Header</header>
+      <Menu />
     </div>
   );
 }

@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Karla', sans-serif
+}
+
+body {
+    background-color: #1C1C1C;
+    margin: 0;
+}
+
+.App {
+    display: flex;
+    background-color: #F5F7FB;
+    margin: 20px auto auto auto;
+    padding: 50px 60px;
+    border-radius: 10px;
+    width: 550px;
+    min-height: 550px;
+    color: #293264;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu--title {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.menu--description {
+    font-size: 1em;
+    font-weight: 400;
+    text-align: center;
+}
+
+.menu--button {
+    background-color: #21A252;
+    margin: 15px;
+    padding: 10px 5px;;
+    width: 125px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px #1e1e1e;
+}
+
+.settings {
+    background-color: #4D5B9E;
+}
+
+.menu--button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.menu--button:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px #1e1e1e;
+}
