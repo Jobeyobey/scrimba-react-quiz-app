@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
-export default function Menu() {
+export default function Menu(props) {
+
     const [settings, setSettings] = React.useState({
         id: "settings",
         questions: 5,
@@ -8,13 +9,14 @@ export default function Menu() {
         difficulty: ""
     })
     const [apiUrl, setApiUrl] = React.useState("https://opentdb.com/api.php?amount=5")
+    // const [triviaQuestions, setTriviaQuestions] = React.useState([])
 
 
     // Fetch the trivia questions from the API according the the URL in state
     useEffect(() => {
         fetch(apiUrl)
             .then((response) => response.json())
-            .then((data) => console.log(data))
+            .then((data) => props.setTriviaQuestions(data))
             .catch((err) => {
                 console.log(err.message)
             })
@@ -29,7 +31,6 @@ export default function Menu() {
             }
         })
     }
-    console.log(settings)
 
     return (
         <div className="menu">
