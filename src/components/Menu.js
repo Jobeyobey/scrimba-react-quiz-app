@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-export default function Menu(props) {
+export default function Menu({triviaQuestions, setTriviaQuestions}) {
 
     const [settings, setSettings] = React.useState({
         id: "settings",
@@ -8,23 +8,29 @@ export default function Menu(props) {
         category: "any",
         difficulty: "any"
     })
-    const [fetching, setFetching] = React.useState(false)
     const [apiUrl, setApiUrl] = React.useState("https://opentdb.com/api.php?amount=5")
-    // const [triviaQuestions, setTriviaQuestions] = React.useState([])
 
 
-    // Fetch the trivia questions from the API according the the URL in state
+    // If loading is true, fetch the trivia questions from the API according apiUrl in state
     useEffect(() => {
-        if(fetching === true) {
+        if(triviaQuestions.loading === true) {
             fetch(apiUrl)
                 .then((response) => response.json())
-                .then((data) => props.setTriviaQuestions(data))
+                .then((data) => setTriviaQuestions({questions: data, loading: false}))
                 .catch((err) => {
                     console.log(err.message)
                 })
-            setFetching(false)
         }
-    }, [fetching])
+    }, [triviaQuestions])
+
+    /**
+     * useEffect below uses setApiUrl to set the apiUrl according to the settings picked by the user. 
+     * For example, the standard URL for 5 questions, any category and any difficulty is `https://opentdb.com/api.php?amount=5`.
+     * The URL for 8 questions, "Books" category and "Medium" difficulty is `https://opentdb.com/api.php?amount=8&category=10&difficulty=medium`.
+     * In the above example, `amount=8` refers to number of questions. `&category=10` refers to "Books" category, `&difficulty=medium` is for "Medium" difficulty questions.
+     * We create a custom API URL string by setting `questions`, `category` and `difficulty` variables to strings like the above.
+     * We then combine all the above with `setApiUrl`.
+     * */ 
 
     useEffect(() => {
 
@@ -32,7 +38,7 @@ export default function Menu(props) {
         let category = "";
         let difficulty = "";
 
-        // Set category to correct string for URL depending on settings
+        // Set `category` to correct string depending on settings
         switch(settings.category) {
             case "general":
                 category="&category=9"
@@ -95,7 +101,7 @@ export default function Menu(props) {
                 category = ""
         }
 
-        // Set difficulty to correct string for URL depending on settings
+        // Set `difficulty` to correct string depending on settings
         switch(settings.difficulty) {
             case "easy":
                 difficulty="&difficulty=easy"
@@ -114,9 +120,14 @@ export default function Menu(props) {
         setApiUrl(`https://opentdb.com/api.php?amount=${questions}${category}${difficulty}`)
     }, [settings])
 
-    // When "Start Quiz" is clicked, set `fetching` to true. This will trigger the useEffect hook to fetch the trivia questions from the API
+    // When "Start Quiz" is clicked, set `loading` to true. This will trigger the useEffect hook to fetch the trivia questions from the API
     function fetchApi() {
-        setFetching(true)
+        setTriviaQuestions(prevQuestions => {
+            return {
+                ...prevQuestions,
+                loading: true
+            }
+        })
     }
 
     // On settings input change, update settings state to new value
@@ -131,7 +142,7 @@ export default function Menu(props) {
 
     return (
         <div className="menu">
-            {/* Title and description */}
+            {/* Title and App description */}
             <h1 className="menu--title">Quizzical</h1>
             <p className="menu--description">
                 This is a simple quiz game where you'll be asked questions from Open Trivia DB
@@ -176,26 +187,15 @@ export default function Menu(props) {
                     <option value="hard">Hard</option>
                 </select>
             </div>
-            {/* Start button */}
+            {/* Start button. If loading, say "Loading..." and disable onClick function */}
             <div>
-                <button className="menu--button start" onClick={fetchApi}>Start Quiz</button>
+                {
+                    triviaQuestions.loading ? 
+                    <button className="menu--button start">Loading...</button> :
+                    <button className="menu--button start" onClick={fetchApi}>Start Quiz</button>
+                }
             </div>
         </div>
             
     )
 }
-
-/**
- * For the menu, I need:
- *  - A title <h1> DONE
- *  - A description <p> DONE
- *  - A settings button <button> - DONE
- *      - When settings button is clicked, reveal options - REMOVED, no point, just have settings always available
- *          - Elements that for drop-down menus for Number of questions, category and difficulty - DONE
- *  - A 'start' button <button>
- *      - When clicked, it must create a custom API URL based on the settings chosen and
- *        pass that to state so it can be used to create the quiz DONE
- * 
- * 
- *  - State needed so far: Settings and API URL
- */
