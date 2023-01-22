@@ -21,7 +21,7 @@ function App() {
       questionElements = triviaQuestions.map((question, index) => {
       return <TriviaQuestion
         key = {nanoid()}
-        questionId = {index}
+        questionIndex = {index}
         question = {question.question}
         possible_answers = {question.possible_answers}
         answer = {question.correct_answer}
@@ -30,9 +30,25 @@ function App() {
     })
   }
 
-  function selectAnswer(event) {
-    console.log(event.target)
+  // When an answer is clicked, change `selected_answer` to the index of that answer
+  function selectAnswer(questionIndex, answerIndex) {
+    setTriviaQuestions(prevQuestions => {
+      return prevQuestions.map((question, index) => {
+        // If the index of the clicked question matches the current iterated question, update the selected answer
+        if(questionIndex === index) {
+          return {
+            ...question,
+            selected_answer: answerIndex
+          }
+          // Otherwise, return the original object
+        } else {
+          return question
+        }
+      })
+    })
   }
+
+  console.log(triviaQuestions)
   
   return (
     <div className="App">

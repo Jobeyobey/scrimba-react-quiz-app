@@ -1,18 +1,18 @@
 import React from "react"
 import { nanoid } from "nanoid"
 
-export default function TriviaQuestion({questionId, question, answer, possible_answers, selectAnswer}) {
+export default function TriviaQuestion({questionIndex, question, answer, possible_answers, selectAnswer}) {
 
 
     // Create a button for each element in `possible_answers`
-    let answerElements = possible_answers.map((possible_answer) => {
+    let answerElements = possible_answers.map((possible_answer, index) => {
         return (
             <button
             className = "question--answers"
             key = {nanoid()}
-            questionId = {questionId + 1}
-            id = {possible_answer}
-            onClick = {selectAnswer}
+            questionindex = {questionIndex}
+            answerid = {index}
+            onClick = {() => selectAnswer(questionIndex, index)}
             >
                 {possible_answer}
             </button>
@@ -21,7 +21,7 @@ export default function TriviaQuestion({questionId, question, answer, possible_a
 
     return (
         <div>
-            <h2 className="question--title">{questionId + 1}: {question}</h2>
+            <h2 className="question--title">{questionIndex + 1}: {question}</h2>
             <div className="question--answers-container">
                 {answerElements}
             </div>
