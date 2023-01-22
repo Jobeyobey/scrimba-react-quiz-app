@@ -42,7 +42,8 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
                             return {
                                 question: question.question,
                                 correct_answer: question.correct_answer,
-                                possible_answers: shuffle([question.correct_answer, ...question.incorrect_answers])
+                                possible_answers: shuffle([question.correct_answer, ...question.incorrect_answers]),
+                                selected: false
                         }
                     });
                 }))

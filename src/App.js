@@ -21,15 +21,19 @@ function App() {
       questionElements = triviaQuestions.map((question, index) => {
       return <TriviaQuestion
         key = {nanoid()}
-        id = {index}
+        questionId = {index}
         question = {question.question}
         possible_answers = {question.possible_answers}
         answer = {question.correct_answer}
+        selectAnswer={selectAnswer}
       />
     })
   }
-  console.log(questionElements)
 
+  function selectAnswer(event) {
+    console.log(event.target)
+  }
+  
   return (
     <div className="App">
 
@@ -51,30 +55,3 @@ function App() {
 }
 
 export default App;
-
-/**
- * triviaQuestions.questions is an object looking like this {
- *  triviaQuestions: {
- *    questions: {
- *      results: [
- *        {
- *          category: "Category"
- *          correct_answer: "Correct Answer"
- *          difficulty: "diff"
- *          incorrect_answers: [
- *          1,
- *          2,
- *          3
- *          ]
- *          question: "Question"
- *          type: "multiple / true/false"
- *        },
- *        object,
- *        object,
- *        object,
- *        object,
- *      ]
- *    } 
- *  }
- * }
- */
