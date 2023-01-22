@@ -1,28 +1,11 @@
 import React from "react"
 import { nanoid } from "nanoid"
 
-export default function TriviaQuestion({id, category, answer, incorrect_answers, question, type}) {
+export default function TriviaQuestion({id, question, answer, possible_answers}) {
 
-    // Function to shuffle an array
-    function shuffle(array) {
-        let currentIndex = array.length;
-        let randomIndex;
-
-        while(currentIndex > 0) {
-            randomIndex = Math.floor(Math.random() * array.length);
-            currentIndex--;
-
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-
-        return array;
-    }
-
-    // Shuffle the answer with the incorrect answers
-    const possibleAnswers = shuffle([answer, ...incorrect_answers])
-
-    let answerElements = possibleAnswers.map((answer) => {
-        return <button className="question--answers" key={nanoid()}>{answer}</button>
+    // Create a button for each element in `possible_answers`
+    let answerElements = possible_answers.map((possible_answer) => {
+        return <button className="question--answers" key={nanoid()}>{possible_answer}</button>
     })
 
     return (
@@ -35,3 +18,15 @@ export default function TriviaQuestion({id, category, answer, incorrect_answers,
         </div>
     )
 }
+
+
+/**
+ * Each answer must be an object, with a `id`, `question`, `selected` and `correct` value.
+ * When clicked, `selected` must become true on the relevant `id`, it must become false on all others.
+ * When answers are checked, if an answer is both `selected` and `true`, it is correct and highlighted green. Correct answer count must increase by 1.
+ * If an answer is both `selected` and `false`, it is wrong and highlighted red
+ * If an answer is both `unselected` and `true`, it must become highlighted light green
+ * 
+ * It may be easier if answers are turned into their objects, shuffled into an array and then passed to TriviaQuestions.
+ * I may need a "checking answers" state as well.
+ */

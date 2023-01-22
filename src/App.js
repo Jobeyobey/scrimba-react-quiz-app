@@ -5,38 +5,42 @@ import Menu from "./components/Menu"
 import TriviaQuestion from "./components/TriviaQuestion"
 
 function App() {
-  const [triviaQuestions, setTriviaQuestions] = React.useState({
-    questions: null,
-    loading: false
+  const [appStates, setAppStates] = React.useState({
+    fetching_questions: false,
+    checking_answers: false
   })
+  const [triviaQuestions, setTriviaQuestions] = React.useState(false)
 
   /**
    * The `if` statement and `chosenQuestions` declaration immediately below are needed once the trivia questions have been fetched and the game begins.
    * First, it creates `questionElements` in global scope.
-   * Then, if the questions have been fetched, map over them and create the <TriviaQuestion /> elements for the app
+   * Then, if triviaData exists, map it to create the <TriviaQuestion /> elements for the app
    * */ 
   let questionElements = null;
-  if(triviaQuestions.questions) {
-    let chosenQuestions = triviaQuestions.questions.results;
-    questionElements = chosenQuestions.map((question, index) => {
+  if(triviaQuestions) {
+      questionElements = triviaQuestions.map((question, index) => {
       return <TriviaQuestion
         key = {nanoid()}
         id = {index}
-        category = {question.category}
-        answer = {question.correct_answer}
-        incorrect_answers = {question.incorrect_answers}
         question = {question.question}
-        type = {question.type}
+        possible_answers = {question.possible_answers}
+        answer = {question.correct_answer}
       />
     })
   }
+  console.log(questionElements)
 
   return (
     <div className="App">
 
-      { /* If questions exist, display menu. Otherwise, display trivia questions */
-        !triviaQuestions.questions ?
-        <Menu triviaQuestions={triviaQuestions} setTriviaQuestions={setTriviaQuestions}/> :
+      { /* If `questions` exist, display trivia questions. Otherwise, display <Menu /> */
+        triviaQuestions === false ?
+        <Menu 
+          triviaQuestions={triviaQuestions}
+          setTriviaQuestions={setTriviaQuestions}
+          appStates={appStates}
+          setAppStates={setAppStates}
+        /> :
         <div>
           {questionElements}
         </div>

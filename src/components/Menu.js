@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-export default function Menu({triviaQuestions, setTriviaQuestions}) {
+export default function Menu({triviaQuestions, setTriviaQuestions, appStates, setAppStates}) {
 
     const [settings, setSettings] = React.useState({
         id: "settings",
@@ -11,17 +11,46 @@ export default function Menu({triviaQuestions, setTriviaQuestions}) {
     const [apiUrl, setApiUrl] = React.useState("https://opentdb.com/api.php?amount=5")
 
 
-    // If loading is true, fetch the trivia questions from the API according apiUrl in state
+    // Function to shuffle an array.
+    // This is used for shuffling the correct/incorrect answers when fetched from the API.
+    function shuffle(array) {
+        let currentIndex = array.length;
+        let randomIndex;
+
+        while(currentIndex > 0) {
+            randomIndex = Math.floor(Math.random() * array.length);
+            currentIndex--;
+
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
+    }
+
+    /**
+     * When "Start Game" is clicked, `appStates.fetching_questions` is set to `true`.
+     * This will make a request to the API according to `apiUrl`.
+     * When the data is received, map over the data into an array of objects containing data we need.
+     * We will set `triviaQuestions` to that array.
+     */
     useEffect(() => {
-        if(triviaQuestions.loading === true) {
+        if(appStates.fetching_questions === true) {
             fetch(apiUrl)
                 .then((response) => response.json())
-                .then((data) => setTriviaQuestions({questions: data, loading: false}))
+                .then((data) => setTriviaQuestions(() => {
+                        return data.results.map(question => {
+                            return {
+                                question: question.question,
+                                correct_answer: question.correct_answer,
+                                possible_answers: shuffle([question.correct_answer, ...question.incorrect_answers])
+                        }
+                    });
+                }))
                 .catch((err) => {
                     console.log(err.message)
                 })
         }
-    }, [triviaQuestions])
+    }, [appStates])
 
     /**
      * useEffect below uses setApiUrl to set the apiUrl according to the settings picked by the user. 
@@ -122,10 +151,10 @@ export default function Menu({triviaQuestions, setTriviaQuestions}) {
 
     // When "Start Quiz" is clicked, set `loading` to true. This will trigger the useEffect hook to fetch the trivia questions from the API
     function fetchApi() {
-        setTriviaQuestions(prevQuestions => {
+        setAppStates(prevState => {
             return {
-                ...prevQuestions,
-                loading: true
+                ...prevState,
+                fetching_questions: true
             }
         })
     }
@@ -190,7 +219,7 @@ export default function Menu({triviaQuestions, setTriviaQuestions}) {
             {/* Start button. If loading, say "Loading..." and disable onClick function */}
             <div>
                 {
-                    triviaQuestions.loading ? 
+                    appStates.fetching_questions ? 
                     <button className="menu--button start">Loading...</button> :
                     <button className="menu--button start" onClick={fetchApi}>Start Quiz</button>
                 }
