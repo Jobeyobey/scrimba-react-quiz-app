@@ -176,8 +176,7 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
             {/* Title and App description */}
             <h1 className="menu--title">Quizzical</h1>
             <p className="menu--description">
-                This is a simple quiz game where you'll be asked questions from Open Trivia DB
-                and then you'll look like a fool when you get them wrong
+                Customise your quiz and get quizzical!
             </p>
             {/* Settings drop down menus */}
             <div className="menu--dropdowns-container">
