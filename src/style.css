@@ -82,7 +82,7 @@ body {
 
 
 
-/* Questions/Answers */
+/* Questions/Answers/Score */
 
 .question--title {
     font-size: 1.2em;
@@ -135,4 +135,9 @@ body {
 .question--divider {
     border: 1px solid #DBDEF0;
     margin: 15px 0px;
+}
+
+.trivia--score {
+    font-size: 2em;
+    text-align: center;
 }

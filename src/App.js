@@ -72,12 +72,21 @@ function App() {
   }
 
   function checkAnswers() {
-    setAppStates(prevState => {
-      return {
-        ...prevState,
-        checking_answers: true
-      }
+    // If any selected_answer property is null, answeredArray.length will be greater than 0
+    let answeredArray = triviaQuestions.filter(question => {
+      return question.selected_answer === null
     })
+    // If all questions have been answered, check answers
+    if(answeredArray.length === 0) {
+      setAppStates(prevState => {
+        return {
+          ...prevState,
+          checking_answers: true
+        }
+      })
+    } else {
+      alert("Answer all questions before checking answers.")
+    }
   }
 
   // Reset game state to default
@@ -103,6 +112,9 @@ function App() {
         /> :
         <div>
           {questionElements}
+          {appStates.checking_answers &&
+            <h2 className="trivia--score">You scored {score}/{triviaQuestions.length}!</h2>
+          }
           {
             appStates.checking_answers ?
             <button
