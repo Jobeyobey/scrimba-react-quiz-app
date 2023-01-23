@@ -3,17 +3,24 @@
     font-family: 'Karla', sans-serif
 }
 
+/* html, body {
+    height: 100%;
+    width: 100%;
+} */
+
 body {
-    background-color: #1C1C1C;
-    margin: 0;
+    background-color: #F5F7FB;
+    background-image: url("./images/blob-1.svg"), url("./images/blob-2.svg");
+    background-repeat: no-repeat;
+    background-position: right top, left bottom;
+    background-attachment: fixed;
 }
 
 /* Main app container */
 
 .App {
     display: flex;
-    background-color: #F5F7FB;
-    margin: 20px auto auto auto;
+    margin: auto auto auto auto;
     padding: 50px 60px;
     border-radius: 10px;
     width: 550px;
@@ -76,8 +83,18 @@ body {
     text-align: center;
 }
 
-.settings {
-    background-color: #4D5B9E;
+.menu--dropdowns-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu--dropdowns {
+    /* background-color: #FCFCFC; */
+    margin: 10px 5px;
+    border-radius: 5px;
+    height: 2em;
+    min-width: 125px;
+    font-size: 1em;
 }
 
 
@@ -111,12 +128,12 @@ body {
 }
 
 .correct {
-    background-color: #94D7A2;
+    background-color: #49BE82;
+    color: white;
 }
 
 .incorrect {
-    background-color: #F81C1C;
-    opacity: 0.5;
+    background-color: #F05050;
     color: white;
 }
 
