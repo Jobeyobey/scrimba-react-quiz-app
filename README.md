@@ -25,3 +25,13 @@ If the 'check answers' button is clicked, I could add button wiggle animation or
 Once all are selected and 'check answers' is clicked, I can update the class of the correct answers so that they appear green. If the user selected an incorrect answer, it can appear red. I will need to think about exactly how I will do this.
 
 Then I need to tally up and display how many they got correct, comparing their selected answers to the correct answers. This and the above CSS issues will likely be solved using objects that contain 'isSelected' boolean values.
+
+# Project Complete - What I learnt
+
+This project was more difficult than I thought it would be. The previous app I made (tenzies), although I coded it all myself... I was given what step is best to take next. E.g. make the app container, then a die, then a component to render multiple die's etc.
+
+I found myself having to go back and nearly completely overhaul parts of my code as I realised I hadn't planned ahead properly, for example when I needed to have a 'selected' property for answers on the trivia screen.
+
+In the end my final website doesn't look exactly like the provided Figma file, however this was an intentional decision. Some answers from the TriviaDatabase were multiple lines long, and wouldn't work rendered on a single line. Becase of this, I chose to render each button as a column instead of just a single row.
+
+I found that there were HTML entities which weren't displaying correctly, which made me discover "dangerouslySetInnerHTML". I researched this and because of this also learnt a little about cross site scripting, and in this case how to avoid it. I used the sanitizer "DOMPurify" to run any questions I got through it, before passing it to dangerouslySetInnerHTML to avoid any potential issues.
