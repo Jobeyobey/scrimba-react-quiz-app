@@ -180,8 +180,8 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
                 and then you'll look like a fool when you get them wrong
             </p>
             {/* Settings drop down menus */}
-            <div>
-                <select value={settings.questions} name="questions" onChange={settingsChange}>
+            <div className="menu--dropdowns-container">
+                <select className="menu--dropdowns" value={settings.questions} name="questions" onChange={settingsChange}>
                     <option value="5">5 Questions</option>
                     <option value="6">6 Questions</option>
                     <option value="7">7 Questions</option>
@@ -189,7 +189,7 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
                     <option value="9">9 Questions</option>
                     <option value="10">10 Questions</option>
                 </select>
-                <select value={settings.category} name="category" onChange={settingsChange}>
+                <select className="menu--dropdowns" value={settings.category} name="category" onChange={settingsChange}>
                     <option value="any">Any Category</option>
                     <option value="general">General Knowledge</option>
                     <option value="books">Books</option>
@@ -211,8 +211,8 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
                     <option value="celebrities">Celebrities</option>
                     <option value="animals">Animals</option>
                 </select>
-                <select value={settings.difficulty} name="difficulty" onChange={settingsChange}>
-                    <option value="any">Any difficulty</option>
+                <select className="menu--dropdowns" value={settings.difficulty} name="difficulty" onChange={settingsChange}>
+                    <option value="any">Any Difficulty</option>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>

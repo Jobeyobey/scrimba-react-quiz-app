@@ -3,6 +3,8 @@ import { nanoid } from "nanoid"
 import "./style.css"
 import Menu from "./components/Menu"
 import TriviaQuestion from "./components/TriviaQuestion"
+import blob1 from "./images/blob-1.svg"
+import blob2 from "./images/blob-2.svg"
 
 function App() {
   const [appStates, setAppStates] = React.useState({
@@ -138,3 +140,10 @@ function App() {
 }
 
 export default App;
+
+
+/** TO DO:
+ * - Fix HTML display of special characters
+ * - Works on mobile?
+ * - Alter any text I'm not happy with
+ */
