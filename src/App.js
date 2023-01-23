@@ -138,9 +138,3 @@ function App() {
 }
 
 export default App;
-
-
-/** TO DO:
- * - Works on mobile?
- * - Alter any text I'm not happy with
- */
