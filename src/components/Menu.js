@@ -53,6 +53,7 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
         }
     }, [appStates])
 
+    
     /**
      * useEffect below uses setApiUrl to set the apiUrl according to the settings picked by the user. 
      * For example, the standard URL for 5 questions, any category and any difficulty is `https://opentdb.com/api.php?amount=5`.
@@ -221,8 +222,8 @@ export default function Menu({triviaQuestions, setTriviaQuestions, appStates, se
             <div>
                 {
                     appStates.fetching_questions ? 
-                    <button className="menu--button start">Loading...</button> :
-                    <button className="menu--button start" onClick={fetchApi}>Start Quiz</button>
+                    <button className="main--button start">Loading...</button> :
+                    <button className="main--button start" onClick={fetchApi}>Start Quiz</button>
                 }
             </div>
         </div>

@@ -10,11 +10,29 @@ function App() {
     checking_answers: false
   })
   const [triviaQuestions, setTriviaQuestions] = React.useState(false)
+  const [score, setScore] = React.useState(0)
+
+  // If checking answers, iterate through triviaQuestions and compare `selected_answer` to `correct_answer` to calculate score
+  React.useEffect(() => {
+    if (appStates.checking_answers) {
+      let scoreTracker = 0;
+      for (let i = 0 ; i < triviaQuestions.length ; i++) {
+        // Assigning variables for easier legibility when checking answer
+        let possible_answers = triviaQuestions[i].possible_answers;
+        let selected_answer = triviaQuestions[i].selected_answer;
+        let answer = triviaQuestions[i].correct_answer;
+        if (possible_answers[selected_answer] === answer) {
+          scoreTracker += 1;
+        }
+      }
+      setScore(scoreTracker)
+    }
+  }, [appStates])
 
   /**
-   * The `if` statement and `chosenQuestions` declaration immediately below are needed once the trivia questions have been fetched and the game begins.
+   * The `if` statement and `questionElements` below are for when `triviaQuestions` have been fetched
    * First, it creates `questionElements` in global scope.
-   * Then, if triviaData exists, map it to create the <TriviaQuestion /> elements for the app
+   * Then, if triviaQuestions exists, map over it to create a <TriviaQuestion /> for each question
    * */ 
   let questionElements = null;
   if(triviaQuestions) {
@@ -25,30 +43,52 @@ function App() {
         question = {question.question}
         possible_answers = {question.possible_answers}
         answer = {question.correct_answer}
-        selectAnswer={selectAnswer}
+        selected_answer = {question.selected_answer}
+        selectAnswer = {selectAnswer}
+        checking_answers = {appStates.checking_answers}
       />
     })
   }
 
-  // When an answer is clicked, change `selected_answer` to the index of that answer
+  // When an answer in <TriviaQuestion /> is clicked, change `selected_answer` to the index of that answer
+  // Only runs if not currently checking answers to stop player changing answers at game end.
   function selectAnswer(questionIndex, answerIndex) {
-    setTriviaQuestions(prevQuestions => {
-      return prevQuestions.map((question, index) => {
-        // If the index of the clicked question matches the current iterated question, update the selected answer
-        if(questionIndex === index) {
-          return {
-            ...question,
-            selected_answer: answerIndex
+    if(!appStates.checking_answers) {
+      setTriviaQuestions(prevQuestions => {
+        return prevQuestions.map((question, index) => {
+          // If the index of the clicked question matches the current iterated question, update the selected answer
+          if(questionIndex === index) {
+            return {
+              ...question,
+              selected_answer: answerIndex
+            }
+            // Otherwise, return the original object
+          } else {
+            return question
           }
-          // Otherwise, return the original object
-        } else {
-          return question
-        }
+        })
       })
+    }
+  }
+
+  function checkAnswers() {
+    setAppStates(prevState => {
+      return {
+        ...prevState,
+        checking_answers: true
+      }
     })
   }
 
-  console.log(triviaQuestions)
+  // Reset game state to default
+  function resetGame() {
+    setTriviaQuestions(false);
+    setAppStates({
+      fetching_questions: false,
+      checking_answers: false
+    });
+    setScore(0);
+  }
   
   return (
     <div className="App">
@@ -63,6 +103,21 @@ function App() {
         /> :
         <div>
           {questionElements}
+          {
+            appStates.checking_answers ?
+            <button
+              className="main--button trivia--screen"
+              onClick={resetGame}
+              >
+                Main Menu
+            </button> :
+            <button
+              className="main--button trivia--screen"
+              onClick={checkAnswers}
+              >
+                Check Answers
+            </button>
+          }
         </div>
       }
 
