@@ -3,17 +3,26 @@
     font-family: 'Karla', sans-serif
 }
 
-/* html, body {
-    height: 100%;
-    width: 100%;
-} */
-
 body {
     background-color: #F5F7FB;
     background-image: url("./images/blob-1.svg"), url("./images/blob-2.svg");
     background-repeat: no-repeat;
     background-position: right top, left bottom;
     background-attachment: fixed;
+}
+
+/* Desktop */
+@media only screen and (min-width: 800px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+    body {
+        font-size: 20px;
+    }
 }
 
 /* Main app container */
