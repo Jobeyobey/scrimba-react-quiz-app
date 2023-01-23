@@ -21,6 +21,38 @@ body {
     color: #293264;
 }
 
+/* Main Buttons Style */
+
+.main--button {
+    background-color: #4D5B9E;
+    margin: 15px;
+    padding: 10px 5px;;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 4px #1e1e1e;
+}
+
+.main--button:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.main--button:active {
+    transform: translateY(1px);
+    box-shadow: 0px 2px #1e1e1e;
+}
+
+.trivia--screen {
+    display: block;
+    margin: auto;
+    width: 175px;
+}
+
 /* Main Menu */
 
 .menu {
@@ -44,34 +76,13 @@ body {
     text-align: center;
 }
 
-.menu--button {
-    background-color: #21A252;
-    margin: 15px;
-    padding: 10px 5px;;
-    width: 125px;
-    font-family: 'Inter', sans-serif;
-    font-size: 1em;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0px 4px #1e1e1e;
-}
-
 .settings {
     background-color: #4D5B9E;
 }
 
-.menu--button:hover {
-    cursor: pointer;
-    opacity: 0.9;
-}
 
-.menu--button:active {
-    transform: translateY(1px);
-    box-shadow: 0px 2px #1e1e1e;
-}
 
-/* Questions/Answers */
+/* Questions/Answers/Score */
 
 .question--title {
     font-size: 1.2em;
@@ -92,13 +103,41 @@ body {
     font-weight: 500;
     color: #293264;
     text-align: left;
+    width: 100%;
+}
+
+.selected {
+    background-color: #D6DBF5;
+}
+
+.correct {
+    background-color: #94D7A2;
+}
+
+.incorrect {
+    background-color: #F81C1C;
+    opacity: 0.5;
+    color: white;
+}
+
+.not-selected {
+    opacity: 0.5;
 }
 
 .question--answers:hover {
     opacity: 0.75;
 }
 
+.question--answers:active {
+    scale: 0.99;
+}
+
 .question--divider {
     border: 1px solid #DBDEF0;
     margin: 15px 0px;
+}
+
+.trivia--score {
+    font-size: 2em;
+    text-align: center;
 }
