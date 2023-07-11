@@ -1,5 +1,8 @@
 # Scrimba Learn React - Final Project - Quiz App
 
+Hosted here: https://starlit-blini-2774e6.netlify.app/
+
+
 ## What do I need to do?
 
 I need to create an app that fetches 5 random trivia questions from Open Trivia DB using their API, and then allow the user to pick an answer and then check whether they were right or wrong.
